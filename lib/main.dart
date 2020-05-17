@@ -40,7 +40,8 @@ class Main extends StatelessWidget {
         primarySwatch: Colors.grey,
         cardColor: Colors.white70,
         accentColor: Colors.black,
-         unselectedWidgetColor: Colors.white
+         unselectedWidgetColor: Colors.white,
+         buttonColor: Colors.green,
       ),
         home: AuthHomePage(),
       ),
