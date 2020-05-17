@@ -105,10 +105,12 @@ class UserRepository with ChangeNotifier {
             .where("id", isEqualTo: user.uid)
             .getDocuments();
         final List<DocumentSnapshot> documents = result.documents;
-
+        currentUser = user;
+        DocumentSnapshot documentSnapshot =
+            await usersReference.document(user.uid).get();
+        currentSignInUser = User.fromDocument(documentSnapshot);
         // if the user is not already stored in our own created users collection
         if (documents.length == 0) {
-          currentUser = user;
           _status = Status.Set_Username;
           notifyListeners();
           return true;

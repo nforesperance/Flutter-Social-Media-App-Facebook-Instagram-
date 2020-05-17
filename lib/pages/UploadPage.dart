@@ -1,16 +1,15 @@
 import 'dart:io';
 
+import 'package:buddiesgram/auth/utils/firebase_auth.dart';
 import 'package:buddiesgram/models/user.dart';
 import 'package:buddiesgram/pages/HomePage.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class UploadPage extends StatefulWidget {
- final User currentUser;
-
-  const UploadPage({Key key, this.currentUser}) : super(key: key);
   @override
   _UploadPageState createState() => _UploadPageState();
 }
@@ -180,10 +179,10 @@ class _UploadPageState extends State<UploadPage> {
           ),
           Padding(padding: EdgeInsets.only(top: 12.0)),
           ListTile(
-            // leading: CircleAvatar(
-            //   backgroundImage:
-            //       CachedNetworkImageProvider(widget.currentUser.url),
-            // ),
+            leading: CircleAvatar(
+              backgroundImage:
+                  CachedNetworkImageProvider(currentSignInUser.url),
+            ),
             title: Container(
               width: 250.0,
               child: TextField(
@@ -242,6 +241,8 @@ class _UploadPageState extends State<UploadPage> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserRepository>(context);
+    // print(user.currentUser);
     return file ==null? displayUploadScreen() : displayUploadForm();
   }
 }

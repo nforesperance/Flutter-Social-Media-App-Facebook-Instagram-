@@ -1,3 +1,4 @@
+import 'package:buddiesgram/auth/utils/firebase_auth.dart';
 import 'package:buddiesgram/models/user.dart';
 import 'package:buddiesgram/pages/NotificationsPage.dart';
 import 'package:buddiesgram/pages/ProfilePage.dart';
@@ -7,6 +8,7 @@ import 'package:buddiesgram/pages/UploadPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 CollectionReference usersReference = Firestore.instance.collection("users");
 User currentSignInUser;
@@ -50,7 +52,7 @@ class _HomePageState extends State<HomePage> {
         children: <Widget>[
           TimeLinePage(),
           SearchPage(),
-          UploadPage(currentUser: currentSignInUser,),
+          UploadPage(),
           NotificationsPage(),
           ProfilePage()
         ],
