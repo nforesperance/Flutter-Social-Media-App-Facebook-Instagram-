@@ -33,6 +33,9 @@ dependencies:
   path_provider: ^0.5.0+1
   firebase_messaging: ^4.0.0+1
   firebase_storage: ^2.1.0+1
+  shared_preferences: ^0.5.6+2
+  provider: ^4.0.4
+  fluttertoast: ^4.0.0
   flutter_svg:
 
 dev_dependencies:
@@ -50,4 +53,5 @@ flutter:
       fonts:
         - asset: assets/fonts/Signatra.ttf
   assets:
+    - assets/images/
     - assets/images/google_signin_button.png
