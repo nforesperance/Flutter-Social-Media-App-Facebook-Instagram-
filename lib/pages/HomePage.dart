@@ -1,3 +1,4 @@
+import 'package:buddiesgram/models/user.dart';
 import 'package:buddiesgram/pages/NotificationsPage.dart';
 import 'package:buddiesgram/pages/ProfilePage.dart';
 import 'package:buddiesgram/pages/SearchPage.dart';
@@ -8,6 +9,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 CollectionReference usersReference = Firestore.instance.collection("users");
+User currentSignInUser;
+final DateTime timestamp = DateTime.now();
 
 class HomePage extends StatefulWidget {
   @override
@@ -47,7 +50,7 @@ class _HomePageState extends State<HomePage> {
         children: <Widget>[
           TimeLinePage(),
           SearchPage(),
-          UploadPage(),
+          UploadPage(currentUser: currentSignInUser,),
           NotificationsPage(),
           ProfilePage()
         ],

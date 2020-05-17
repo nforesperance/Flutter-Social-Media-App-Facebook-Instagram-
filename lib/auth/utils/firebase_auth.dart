@@ -1,5 +1,6 @@
 import 'package:buddiesgram/models/user.dart';
 import 'package:buddiesgram/pages/CreateAccountPage.dart';
+import 'package:buddiesgram/pages/HomePage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +19,6 @@ enum Status {
   SignUp,
   Set_Username,
 }
-
-User currentUser;
 
 class UserRepository with ChangeNotifier {
   final FirebaseAuth auth;
@@ -46,13 +45,13 @@ class UserRepository with ChangeNotifier {
     try {
       _status = Status.Authenticating;
       notifyListeners();
-      await auth
-          .signInWithEmailAndPassword(email: email, password: password)
-          .then((value) {
-        _status = Status.Authenticated;
-        notifyListeners();
-        return true;
-      });
+      FirebaseUser user = await auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      DocumentSnapshot documentSnapshot =
+          await usersReference.document(user.uid).get();
+      currentSignInUser = User.fromDocument(documentSnapshot);
+      _status = Status.Authenticated;
+      notifyListeners();
       return true;
     } catch (e) {
       _status = Status.Unauthenticated;
@@ -145,6 +144,7 @@ class UserRepository with ChangeNotifier {
     notifyListeners();
     return Future.delayed(Duration.zero);
   }
+
   Future homePage() async {
     _status = Status.Authenticated;
     notifyListeners();

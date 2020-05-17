@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:buddiesgram/auth/utils/firebase_auth.dart';
+import 'package:buddiesgram/models/user.dart';
+import 'package:buddiesgram/pages/HomePage.dart';
 import 'package:buddiesgram/widgets/HeaderWidget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -73,7 +75,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       child: MaterialButton(
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
-                            final DateTime timestamp = DateTime.now();
                            await Firestore.instance
                                 .collection("users")
                                 .document(user.currentUser.uid)
@@ -86,6 +87,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                               "bio": "",
                               "timestamp": timestamp
                             });
+                             DocumentSnapshot documentSnapshot = await usersReference.document(user.currentUser.uid)
+                            .get();
+                            currentSignInUser = User.fromDocument(documentSnapshot);
                             user.homePage();
                           }
                         },
