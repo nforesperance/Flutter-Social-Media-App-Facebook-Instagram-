@@ -1,86 +1,43 @@
 {
   "project_info": {
-    "project_number": "410006906452",
-    "firebase_url": "https://social-network-d4a26.firebaseio.com",
-    "project_id": "social-network-d4a26",
-    "storage_bucket": "social-network-d4a26.appspot.com"
+    "project_number": "1005507208476",
+    "firebase_url": "https://social-network-40b6f.firebaseio.com",
+    "project_id": "social-network-40b6f",
+    "storage_bucket": "social-network-40b6f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:410006906452:android:0e43bcdbebb93abf9c6fc1",
+        "mobilesdk_app_id": "1:1005507208476:android:d184f34c94ecd8207546d9",
         "android_client_info": {
           "package_name": "com.muhammadali.buddiesgram"
         }
       },
       "oauth_client": [
         {
-          "client_id": "410006906452-dcrbhn0jtuu1pi9gp8721b6kgqmc2g4e.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBKAvBHGnlW6mGEM05nxzg2Bo13qJ9uqtI"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "410006906452-dcrbhn0jtuu1pi9gp8721b6kgqmc2g4e.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "410006906452-899lmkd21e3oqpii8g71rhg78n59rd7b.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.muhammadali.socialnetwork"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:410006906452:android:b0b873d9897c39c19c6fc1",
-        "android_client_info": {
-          "package_name": "com.muhammadali.socialnetwork"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "410006906452-2mvfft2v3ueecrbliqe7t4hehrm2vr6q.apps.googleusercontent.com",
+          "client_id": "1005507208476-9kkb0kgp623bodprrrdptl48d1e4knoj.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.muhammadali.socialnetwork",
-            "certificate_hash": "0ab4cabd360df21af4330856c38e84af640a2dc8"
+            "package_name": "com.muhammadali.buddiesgram",
+            "certificate_hash": "9a62ebd93caa86dfbe95c9bf95c0f9089c0817e6"
           }
         },
         {
-          "client_id": "410006906452-dcrbhn0jtuu1pi9gp8721b6kgqmc2g4e.apps.googleusercontent.com",
+          "client_id": "1005507208476-ttdbacopsgrtn6m8a5inqlvm6nc6t14u.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBKAvBHGnlW6mGEM05nxzg2Bo13qJ9uqtI"
+          "current_key": "AIzaSyBpElfqUFJwKsba59Euhgq2HWthGdRz7ic"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "410006906452-dcrbhn0jtuu1pi9gp8721b6kgqmc2g4e.apps.googleusercontent.com",
+              "client_id": "1005507208476-ttdbacopsgrtn6m8a5inqlvm6nc6t14u.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "410006906452-899lmkd21e3oqpii8g71rhg78n59rd7b.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.muhammadali.socialnetwork"
-              }
             }
           ]
         }
