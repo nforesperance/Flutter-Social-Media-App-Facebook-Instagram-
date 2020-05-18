@@ -139,7 +139,7 @@ class _UploadPageState extends State<UploadPage> {
   displayUploadForm() {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
         leading: IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.white),
             onPressed: removeImage),
