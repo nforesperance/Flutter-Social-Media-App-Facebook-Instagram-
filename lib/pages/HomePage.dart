@@ -1,3 +1,4 @@
+import 'package:buddiesgram/auth/screens/login.dart';
 import 'package:buddiesgram/auth/utils/firebase_auth.dart';
 import 'package:buddiesgram/models/user.dart';
 import 'package:buddiesgram/pages/NotificationsPage.dart';
@@ -57,7 +58,7 @@ class _HomePageState extends State<HomePage> {
           SearchPage(),
           UploadPage(),
           NotificationsPage(),
-          ProfilePage()
+          ProfilePage(profileId:currentSignInUser.id)
         ],
         controller: pageController,
         // This onPageChanged passes the index as parameter
@@ -90,6 +91,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final user = Provider.of<UserRepository>(context);
     return buildHomeScreen();
-  }
+          }
 }
 // currentSignInUser == null?user.signOut():

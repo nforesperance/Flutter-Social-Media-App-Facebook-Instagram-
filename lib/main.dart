@@ -66,7 +66,9 @@ class AuthHomePage extends StatelessWidget {
           case Status.SignUp:
             return SignUp();
           case Status.Authenticated:
-            return HomePage();
+          // This condition is to avoid a case where the user was signed in
+          // , but logoff and comes back straight to the home page
+            return currentSignInUser==null?Login(): HomePage();
           case Status.SigningUP:
             return SignUp();
           case Status.Set_Username:
