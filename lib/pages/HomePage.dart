@@ -6,11 +6,14 @@ import 'package:buddiesgram/pages/SearchPage.dart';
 import 'package:buddiesgram/pages/TimeLinePage.dart';
 import 'package:buddiesgram/pages/UploadPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-CollectionReference usersReference = Firestore.instance.collection("users");
+final CollectionReference usersReference = Firestore.instance.collection("users");
+final StorageReference storageReference = FirebaseStorage.instance.ref().child("Posts Pictures");
+final CollectionReference postsReference = Firestore.instance.collection("posts");
 User currentSignInUser;
 final DateTime timestamp = DateTime.now();
 
@@ -85,7 +88,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserRepository>(context);
     return buildHomeScreen();
   }
 }
-
+// currentSignInUser == null?user.signOut():
