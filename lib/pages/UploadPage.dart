@@ -156,7 +156,7 @@ with AutomaticKeepAliveClientMixin<UploadPage>  {
     IMD.Image mImageFile = IMD.decodeImage(file.readAsBytesSync());
     // Take note of the double .. below
     final compressedImageFIle = File('$path/img_$postId.jpg')
-      ..writeAsBytesSync(IMD.encodeJpg(mImageFile, quality: 90));
+      ..writeAsBytesSync(IMD.encodeJpg(mImageFile, quality: 60));
     setState(() {
       this.file = compressedImageFIle;
     });
