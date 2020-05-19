@@ -57,7 +57,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
-                              createColumns("Posts", 0),
+                              createColumns("Posts", postsCount),
                               createColumns("Followers", 0),
                               createColumns("Following", 0),
                             ],

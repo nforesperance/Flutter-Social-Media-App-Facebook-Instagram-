@@ -131,7 +131,7 @@ class _PostState extends State<Post> {
             trailing: isPostOwner
                 ? IconButton(
                     icon: Icon(
-                      Icons.more,
+                      Icons.more_vert,
                       color: Colors.white,
                     ),
                     onPressed: () => print("Deleted"))
@@ -197,14 +197,14 @@ class _PostState extends State<Post> {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(left: 20.0),
-              child: Text(
-                "$username ",
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              ),
-            ),
+            // Container(
+            //   margin: EdgeInsets.only(left: 20.0),
+            //   child: Text(
+            //     "$username ",
+            //     style:
+            //         TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            //   ),
+            // ),
             Expanded(
               child: Text(
                 "$description",
