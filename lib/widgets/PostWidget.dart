@@ -168,7 +168,7 @@ class _PostState extends State<Post> {
           .collection("feedItems")
           .document(postID)
           .setData({
-        "type": "Like",
+        "type": "like",
         "username": currentSignInUser.username,
         "userId": currentSignInUser.id,
         "timestamp": timestamp,

@@ -24,10 +24,46 @@ class _ProfilePageState extends State<ProfilePage> {
   List<Post> postList = [];
 
   String postOrientation = "grid";
+  int followersCount = 0;
+  int followingsCount = 0;
+  bool following = false;
 
   initState() {
     super.initState();
     getAllProfilePosts();
+    getAllFollowers();
+    getAllFollowings();
+    checkIfAlreadyFollowing();
+  }
+
+  getAllFollowers() async {
+   QuerySnapshot querySnapshot = await followersReference
+        .document(widget.profileId)
+        .collection("userFollowers")
+        .getDocuments();
+        setState(() {
+          followersCount = querySnapshot.documents.length;
+        });
+  }
+
+  getAllFollowings() async{
+        QuerySnapshot querySnapshot = await followingsReference
+        .document(widget.profileId)
+        .collection("userFollowings")
+        .getDocuments();
+        setState(() {
+          followingsCount = querySnapshot.documents.length;
+        });
+  }
+  checkIfAlreadyFollowing() async {
+    DocumentSnapshot documentSnapshot = await followersReference
+        .document(widget.profileId)
+        .collection("userFollowers")
+        .document(currentOnlineUserId)
+        .get();
+    setState(() {
+      following = documentSnapshot.exists;
+    });
   }
 
   creatProfileTopView() {
@@ -58,8 +94,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               createColumns("Posts", postsCount),
-                              createColumns("Followers", 0),
-                              createColumns("Following", 0),
+                              createColumns("Followers", followersCount),
+                              createColumns("Following", followingsCount),
                             ],
                           ),
                           Row(
@@ -142,7 +178,79 @@ class _ProfilePageState extends State<ProfilePage> {
     if (ownProfile) {
       return createButtonTitleAndFunction(
           title: "Edit Profile", performFunction: editUserProfle);
+    } else if (following) {
+      return createButtonTitleAndFunction(
+          title: "Unfollow", performFunction: controlUnfollowUser);
+    } else if (!following) {
+      return createButtonTitleAndFunction(
+          title: "Follow", performFunction: controlFollowUser);
     }
+  }
+
+  controlUnfollowUser() {
+    setState(() {
+      following = false;
+    });
+
+    followersReference
+        .document(widget.profileId)
+        .collection("userFollowers")
+        .document(currentOnlineUserId)
+        .get()
+        .then((document) {
+      if (document.exists) {
+        document.reference.delete();
+      }
+    });
+    followingsReference
+        .document(currentOnlineUserId)
+        .collection("userFollowings")
+        .document(widget.profileId)
+        .get()
+        .then((document) {
+      if (document.exists) {
+        document.reference.delete();
+      }
+    });
+    activityFeedReference
+        .document(widget.profileId)
+        .collection("feedItems")
+        .document(currentOnlineUserId)
+        .get()
+        .then((documents) {
+      if (documents.exists) {
+        documents.reference.delete();
+      }
+    });
+  }
+
+  controlFollowUser() {
+    setState(() {
+      following = true;
+    });
+
+    followersReference
+        .document(widget.profileId)
+        .collection("userFollowers")
+        .document(currentOnlineUserId)
+        .setData({});
+    followingsReference
+        .document(currentOnlineUserId)
+        .collection("userFollowings")
+        .document(widget.profileId)
+        .setData({});
+    activityFeedReference
+        .document(widget.profileId)
+        .collection("feedItems")
+        .document(currentOnlineUserId)
+        .setData({
+      "type": "follow",
+      "username": currentSignInUser.username,
+      "owerId": widget.profileId,
+      "timestamp": DateTime.now(),
+      "userProfileImage": currentSignInUser.url,
+      "userId": currentSignInUser.id,
+    });
   }
 
   createButtonTitleAndFunction({String title, Function performFunction}) {
@@ -155,11 +263,11 @@ class _ProfilePageState extends State<ProfilePage> {
           height: 26.0,
           child: Text(
             title,
-            style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
+            style: TextStyle(color: following? Colors.grey:Colors.white70, fontWeight: FontWeight.bold),
           ),
           alignment: Alignment.center,
           decoration: BoxDecoration(
-              color: Colors.black,
+              color: following? Colors.black:Colors.white70,
               border: Border.all(color: Colors.grey),
               borderRadius: BorderRadius.circular(6.0)),
         ),
@@ -222,26 +330,28 @@ class _ProfilePageState extends State<ProfilePage> {
           ],
         ),
       );
-    }
-    else if(postOrientation =="grid"){
-     List<GridTile> gridTileList = [];
-     postList.forEach((post) { 
-       gridTileList.add(GridTile(child: PostTile(post:post,),));
-     });
-     return GridView.count(
-       crossAxisCount: 3,
-       childAspectRatio: 1.0,
-       mainAxisSpacing: 1.5,
-       crossAxisSpacing: 1.5,
-       shrinkWrap: true,
-       physics: NeverScrollableScrollPhysics(),
-       children: gridTileList,
-       );
-    }
-    else if(postOrientation =="list"){
-     return Column(
-      children: postList,
-    );
+    } else if (postOrientation == "grid") {
+      List<GridTile> gridTileList = [];
+      postList.forEach((post) {
+        gridTileList.add(GridTile(
+          child: PostTile(
+            post: post,
+          ),
+        ));
+      });
+      return GridView.count(
+        crossAxisCount: 3,
+        childAspectRatio: 1.0,
+        mainAxisSpacing: 1.5,
+        crossAxisSpacing: 1.5,
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        children: gridTileList,
+      );
+    } else if (postOrientation == "list") {
+      return Column(
+        children: postList,
+      );
     }
   }
 

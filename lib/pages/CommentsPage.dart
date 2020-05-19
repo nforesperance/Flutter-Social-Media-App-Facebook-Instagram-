@@ -62,6 +62,7 @@ class CommentsPageState extends State<CommentsPage> {
 
     bool isNotPostOwner = postOwnerId != currentSignInUser.id;
     if (isNotPostOwner) {
+      //Make sure to test this and very consoe
       activityFeedReference.document(postOwnerId).collection("feedItems").add({
         "type": "comment",
         "commentDate": timestamp,
