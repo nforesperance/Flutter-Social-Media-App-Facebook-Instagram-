@@ -1,1 +1,1 @@
-## Espigram, a Social Network from Coding Cafe
+## Espigram, a Social Network App
