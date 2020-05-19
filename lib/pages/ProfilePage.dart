@@ -267,7 +267,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           alignment: Alignment.center,
           decoration: BoxDecoration(
-              color: following? Colors.black:Colors.white70,
+              color: following? Colors.black:Colors.blueGrey,
               border: Border.all(color: Colors.grey),
               borderRadius: BorderRadius.circular(6.0)),
         ),
