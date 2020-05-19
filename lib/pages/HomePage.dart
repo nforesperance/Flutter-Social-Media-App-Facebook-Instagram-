@@ -11,10 +11,13 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:buddiesgram/pages/HomePage.dart';
 
 final CollectionReference usersReference = Firestore.instance.collection("users");
 final StorageReference storageReference = FirebaseStorage.instance.ref().child("Posts Pictures");
 final CollectionReference postsReference = Firestore.instance.collection("posts");
+final CollectionReference activityFeedReference = Firestore.instance.collection("feeds");
+final CollectionReference commentsReference = Firestore.instance.collection("comments");
 User currentSignInUser;
 final DateTime timestamp = DateTime.now();
 
