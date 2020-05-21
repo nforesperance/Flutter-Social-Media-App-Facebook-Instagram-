@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class PostScreenPage extends StatelessWidget {
   final String postID;
-  final String userId;
+  final String userId; // better as owner id
 
   const PostScreenPage({Key key, this.postID, this.userId}) : super(key: key);
   @override
@@ -18,6 +18,9 @@ class PostScreenPage extends StatelessWidget {
             .document(postID)
             .get(),
         builder: (context, dataSnapshot) {
+          if (dataSnapshot.hasError) {
+            print(dataSnapshot.error);
+          }
           if (!dataSnapshot.hasData) {
             return circularProgress();
           }

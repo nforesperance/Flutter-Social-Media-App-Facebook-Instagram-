@@ -38,7 +38,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
     QuerySnapshot querySnapshot = await activityFeedReference
         .document(currentSignInUser.id)
         .collection("feedItems")
-        .orderBy("timstamp", descending: true)
+        .orderBy("timestamp", descending: true)
         .limit(50)
         .getDocuments();
     List<NotificationsItem> notficationItems = [];
@@ -61,6 +61,7 @@ class NotificationsItem extends StatelessWidget {
   final String postID;
   final String url;
   final Timestamp timestamp;
+  final String ownerId;
 
   const NotificationsItem(
       {this.username,
@@ -70,7 +71,8 @@ class NotificationsItem extends StatelessWidget {
       this.userProfileImage,
       this.postID,
       this.url,
-      this.timestamp});
+      this.timestamp,
+      this.ownerId});
   factory NotificationsItem.fromDocument(DocumentSnapshot document) {
     return NotificationsItem(
       username: document["username"],
@@ -81,6 +83,7 @@ class NotificationsItem extends StatelessWidget {
       postID: document["postID"],
       url: document["url"],
       timestamp: document["timestamp"],
+      ownerId: document["ownerId"],
     );
   }
   @override
@@ -96,21 +99,27 @@ class NotificationsItem extends StatelessWidget {
               text: TextSpan(
                   style: TextStyle(
                     fontSize: 14.0,
-                    color: Colors.black,
                   ),
                   children: [
                     TextSpan(
                       text: username,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue,
+                      ),
                     ),
                     TextSpan(
                       text: " $notificationItemText",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
                   ])),
         ),
         leading: CircleAvatar(
           backgroundImage: CachedNetworkImageProvider(userProfileImage),
+          radius: 20,
         ),
         subtitle: Text(
           timeAgo.format(timestamp.toDate()),
@@ -135,8 +144,8 @@ class NotificationsItem extends StatelessWidget {
       mediaPreview = GestureDetector(
         onTap: () => displayFullPost(context),
         child: Container(
-          height: 50.0,
-          width: 50.0,
+          height: 40.0,
+          width: 40.0,
           child: AspectRatio(
             aspectRatio: 16 / 9,
             child: Container(
@@ -168,7 +177,7 @@ class NotificationsItem extends StatelessWidget {
         MaterialPageRoute(
             builder: (context) => PostScreenPage(
                   postID: postID,
-                  userId: userId,
+                  userId: ownerId,
                 )));
   }
 }

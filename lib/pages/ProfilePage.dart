@@ -246,7 +246,7 @@ class _ProfilePageState extends State<ProfilePage> {
         .setData({
       "type": "follow",
       "username": currentSignInUser.username,
-      "owerId": widget.profileId,
+      "ownerId": widget.profileId,
       "timestamp": DateTime.now(),
       "userProfileImage": currentSignInUser.url,
       "userId": currentSignInUser.id,

@@ -72,6 +72,7 @@ class CommentsPageState extends State<CommentsPage> {
         "postID": postID,
         "url": postImageUrl,
         "timestamp": DateTime.now(),
+        "ownerId":postOwnerId
       });
     }
     _commentController.clear();
