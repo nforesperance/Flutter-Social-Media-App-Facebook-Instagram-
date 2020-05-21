@@ -80,7 +80,7 @@ class UserRepository with ChangeNotifier {
     notifyListeners();
   }
 
-  Future handleSignIn(context) async {
+  Future handleSignIn() async {
     preferences = await SharedPreferences.getInstance();
     try {
       GoogleSignIn googleSignIn = GoogleSignIn();
@@ -106,9 +106,6 @@ class UserRepository with ChangeNotifier {
             .getDocuments();
         final List<DocumentSnapshot> documents = result.documents;
         currentUser = user;
-        DocumentSnapshot documentSnapshot =
-            await usersReference.document(user.uid).get();
-        currentSignInUser = User.fromDocument(documentSnapshot);
         // if the user is not already stored in our own created users collection
         if (documents.length == 0) {
           _status = Status.Set_Username;
@@ -118,6 +115,11 @@ class UserRepository with ChangeNotifier {
 
         // if user is not in our collection
         else {
+          DocumentSnapshot documentSnapshot =
+              await usersReference.document(user.uid).get();
+
+          currentSignInUser = User.fromDocument(documentSnapshot);
+
           await preferences.setString("id", documents[0]["id"]);
           await preferences.setString("username", documents[0]["username"]);
           await preferences.setString("photoUrl", documents[0]["photoUrl"]);
@@ -129,7 +131,7 @@ class UserRepository with ChangeNotifier {
         return true;
       }
     } catch (e) {
-      print(e.message);
+      print(e);
       print("Error logging with google");
       return false;
     }
@@ -210,5 +212,4 @@ class UserRepository with ChangeNotifier {
     notifyListeners();
     return Future.delayed(Duration.zero);
   }
-  
 }

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:buddiesgram/models/user.dart';
 import 'package:buddiesgram/pages/CommentsPage.dart';
+import 'package:buddiesgram/pages/ProfilePage.dart';
 import 'package:buddiesgram/widgets/CImageWidget.dart';
 import 'package:buddiesgram/widgets/ProgressWidget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -126,7 +127,8 @@ class _PostState extends State<Post> {
                 style:
                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
-              onDoubleTap: () => print("Show Profile"),
+              onDoubleTap: () =>
+                  displayUserProfile(context, profileId: user.id),
             ),
             subtitle: Text(
               location,
@@ -142,6 +144,15 @@ class _PostState extends State<Post> {
                 : null,
           );
         });
+  }
+
+  displayUserProfile(BuildContext context, {String profileId}) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ProfilePage(
+                  profileId: profileId,
+                )));
   }
 
   removeLike() {
@@ -171,7 +182,7 @@ class _PostState extends State<Post> {
         "type": "like",
         "username": currentSignInUser.username,
         "userId": currentSignInUser.id,
-        "timestamp": timestamp,
+        "timestamp": DateTime.now(),
         "url": url,
         "postID": postID,
         "userProfileImage": currentSignInUser.url
@@ -301,12 +312,10 @@ class _PostState extends State<Post> {
 
   displayComments(
       BuildContext context, String postID, String ownerId, String url) {
-        Navigator.push(context, 
-          MaterialPageRoute(builder: (context)=>CommentsPage(
-            postID:postID,
-            postOwnerId:ownerId,
-            postImageUrl:url
-          ))
-        );
-      }
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => CommentsPage(
+                postID: postID, postOwnerId: ownerId, postImageUrl: url)));
+  }
 }

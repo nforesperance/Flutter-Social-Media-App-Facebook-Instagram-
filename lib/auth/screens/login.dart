@@ -200,7 +200,7 @@ class _LoginState extends State<Login> {
                             elevation: 0.0,
                             child: MaterialButton(
                                 onPressed: () async {
-                                  await user.handleSignIn(context);
+                                  await user.handleSignIn();
                                 },
                                 minWidth: MediaQuery.of(context).size.width,
                                 child: Row(

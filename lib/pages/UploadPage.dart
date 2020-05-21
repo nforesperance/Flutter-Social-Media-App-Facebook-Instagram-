@@ -199,7 +199,7 @@ with AutomaticKeepAliveClientMixin<UploadPage>  {
         .setData({
       "postID": postId,
       "ownerId": currentSignInUser.id,
-      "timestamp": timestamp,
+      "timestamp": DateTime.now(),
       "likes": {},
       "username": currentSignInUser.username,
       "description": description,

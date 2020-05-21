@@ -65,12 +65,13 @@ class CommentsPageState extends State<CommentsPage> {
       //Make sure to test this and very consoe
       activityFeedReference.document(postOwnerId).collection("feedItems").add({
         "type": "comment",
-        "commentDate": timestamp,
+        "commentData": _commentController.text,
         "userId": currentSignInUser.id,
-        "urlProfileImage": currentSignInUser.url,
+        "userProfileImage": currentSignInUser.url,
         "username": currentSignInUser.username,
         "postID": postID,
-        "url": postImageUrl
+        "url": postImageUrl,
+        "timestamp": DateTime.now(),
       });
     }
     _commentController.clear();
